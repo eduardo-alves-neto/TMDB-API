@@ -3,7 +3,6 @@ import {
   CardContainer,
   CardImage,
   CardTitle,
-  CardButton,
 } from "../styles/StyledComponents";
 import { Environment } from "../environment/index";
 
