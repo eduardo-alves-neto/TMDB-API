@@ -5,6 +5,7 @@ import { useSnackbar } from "notistack";
 import { MovieCard } from "../../shared/components/MovieCard";
 import { MovieModal } from "../../shared/components/MovieModal";
 import { ButtonSearch, CardTitle } from "../../shared/styles/StyledComponents";
+import { MovieCardFavorite } from "../../shared/components/MovieCardFavorite";
 
 import { queryKey } from "./utils/queryKey";
 
@@ -50,7 +51,6 @@ export const MovieList = () => {
         throw error;
       }
     },
-    enabled: !dataLoaded,
   });
   const { mutateAsync } = useMutation({
     mutationFn: async (values) => {
@@ -92,7 +92,7 @@ export const MovieList = () => {
           <CardTitle>...Carregando</CardTitle> // colocar skeleton
         ) : (
           data?.map((movie, index) => (
-            <div className="col-sm-6 col-md-4 col-lg-4 mt-2" key={index}>
+            <div className="col-sm-6 col-md-4 col-lg-4 mt-2" key={movie.id}>
               <MovieCard movie={movie} index={index}>
                 <MovieModal movie={movie} index={index} submit={submit} />
               </MovieCard>
@@ -108,10 +108,8 @@ export const MovieList = () => {
           <CardTitle>...Carregando</CardTitle>
         ) : (
           favoritesData?.map((movieF, indexF) => (
-            <div className="col-sm-6 col-md-4 col-lg-4 mt-2" key={indexF}>
-              <MovieCard movie={movieF} index={indexF}>
-                <MovieModal movie={movieF} index={indexF} submit={submit} />
-              </MovieCard>
+            <div className="col-sm-6 col-md-4 col-lg-4 mt-2" key={movieF.id}>
+              <MovieCardFavorite movie={movieF} index={indexF} />
             </div>
           ))
         )}
