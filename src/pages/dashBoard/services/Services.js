@@ -25,4 +25,24 @@ export class IMovieServices {
       }
     );
   }
+  static async search(value) {
+    const { data } = await Api.get(
+      `/search/movie?language=pt-BR&query=${value}`,
+      {
+        headers: Environment.headers,
+        "Content-Type": "application/json;charset=utf-8",
+      }
+    );
+    return data;
+  }
+
+  static async getFavorites() {
+    const { data } = await Api.get(
+      `/account/${Environment.Count_ID}/favorite/movies?api_key=${Environment.Api_Key}&session_id=${Environment.session_id}&language=pt-BR`,
+      {
+        headers: Environment.headers,
+      }
+    );
+    return data;
+  }
 }
