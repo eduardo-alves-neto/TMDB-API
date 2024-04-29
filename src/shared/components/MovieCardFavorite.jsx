@@ -1,22 +1,19 @@
 import React from "react";
-import {
-  CardContainer,
-  CardImage,
-  CardTitle,
-} from "../styles/StyledComponents";
+import { Card, CardContent, CardMedia, Typography, Grid } from "@mui/material";
 import { Environment } from "../environment/index";
 
 export const MovieCardFavorite = ({ movie, index }) => (
-  <div className="col-sm-6 col-md-4 col-lg-4 mt-2">
-    <CardContainer>
-      <CardImage
-        src={`${Environment.URL_IMAGEM}/${movie.poster_path}`}
-        alt="movie"
-      />
-
-      <div>
-        <CardTitle>{movie.title}</CardTitle>
-      </div>
-    </CardContainer>
-  </div>
+  <Card sx={{ maxWidth: '100%', width: '20rem', marginX: 4 }}>
+    <CardMedia
+      component="img"
+      height="320"
+      image={`${Environment.URL_IMAGEM}/${movie.poster_path}`}
+      alt="movie"
+    />
+    <CardContent>
+      <Typography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {movie.title}
+      </Typography>
+    </CardContent>
+  </Card>
 );

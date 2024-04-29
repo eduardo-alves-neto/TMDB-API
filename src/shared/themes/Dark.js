@@ -1,17 +1,32 @@
-import { createGlobalStyle } from "styled-components";
+import { createTheme } from "@mui/material";
+import { green, grey } from "@mui/material/colors";
 
-export const theme = {
-  colors: {
-    primary: "#007bff",
-    secondary: "#6c757d",
-    background: "#202124",
-    paper: "#303134",
+export const DarkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: green[700],
+      dark: green[800],
+      light: green[500],
+      contrastText: "#FFFF",
+    },
+
+    secondary: {
+      main: grey[500],
+      dark: grey[400],
+      light: grey[300],
+      contrastText: "#ffffff",
+    },
+
+    background: {
+      default: "#202124",
+      paper: "#303134",
+    },
+  
   },
-};
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${(props) => props.theme.colors.background};
-    color: #ffffff; 
+  typography: {
+    allVariants: {
+      color: "white"
+    }
   }
-`;
+});

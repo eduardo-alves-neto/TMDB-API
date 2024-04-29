@@ -1,9 +1,8 @@
-import { ThemeProvider } from "styled-components";
-import { LayoutPrimary } from "./shared/layouts/LayoutPrimary";
-import { GlobalStyle, theme } from "./shared/themes/Dark";
 import { MovieList } from "./pages/dashBoard";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { SnackbarProvider } from "notistack";
+import { AppThemeProvider } from "./shared/context/themeContext";
+import { NavBar } from "./shared/components/NavBar";
 
 const queryClient = new QueryClient();
 
@@ -11,14 +10,12 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <SnackbarProvider maxSnack={5}>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <LayoutPrimary title="TMDB">
-              <MovieList />
-            </LayoutPrimary>
-          </ThemeProvider>
-        </SnackbarProvider>
+        <AppThemeProvider>
+          <SnackbarProvider maxSnack={3}>
+            <NavBar />
+            <MovieList />
+          </SnackbarProvider>
+        </AppThemeProvider>
       </QueryClientProvider>
     </>
   );

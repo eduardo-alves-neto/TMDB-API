@@ -1,32 +1,21 @@
 import React from "react";
-import {
-  CardContainer,
-  CardImage,
-  CardTitle,
-  CardButton,
-} from "../styles/StyledComponents";
+import { Card, CardContent, CardMedia, Typography, Button, Grid } from "@mui/material";
 import { Environment } from "../environment/index";
 
 export const MovieCard = ({ movie, index, children }) => (
-  <div className="col-sm-6 col-md-4 col-lg-4 mt-2">
-    <CardContainer>
-      <CardImage
-        src={`${Environment.URL_IMAGEM}/${movie.poster_path}`}
-        alt="movie"
-      />
+  <Card sx={{ maxWidth: '100%', width: '20rem', marginX: 4 }}>
+    <CardMedia
+      component="img"
+      height="320"
+      image={`${Environment.URL_IMAGEM}/${movie.poster_path}`}
+      alt="movie"
+    />
+    <CardContent>
+      <Typography sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {movie.title}
+      </Typography>
 
-      <div>
-        <CardTitle>{movie.title}</CardTitle>
-        <CardButton
-          type="button"
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target={`#staticBackdrop${index}`}
-        >
-          Saber mais
-        </CardButton>
-      </div>
-      {children}
-    </CardContainer>
-  </div>
+    </CardContent>
+    {children}
+  </Card>
 );

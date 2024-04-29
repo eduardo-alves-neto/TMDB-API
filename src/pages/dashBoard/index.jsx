@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { IMovieServices } from "./services/Services";
 import { useSnackbar } from "notistack";
 import { MovieCard } from "../../shared/components/MovieCard";
 import { MovieModal } from "../../shared/components/MovieModal";
-import { ButtonSearch, CardTitle } from "../../shared/styles/StyledComponents";
 import { MovieCardFavorite } from "../../shared/components/MovieCardFavorite";
-
 import { queryKey } from "./utils/queryKey";
+import { Button, Grid, TextField, Typography } from "@mui/material";
+
 
 export const MovieList = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -70,50 +70,52 @@ export const MovieList = () => {
   };
 
   return (
-    <div className="container p-3">
-      <nav className="navbar">
-        <div className="container-fluid">
-          <form className="d-flex">
-            <input
-              disabled
-              className="form-control me-2"
-              type="search"
-              placeholder="...."
-              aria-label="Search"
-            />
-            <ButtonSearch type="submit" disabled>
-              Pesquisar
-            </ButtonSearch>
-          </form>
-        </div>
-      </nav>
-      <div className="row flex-nowrap overflow-auto">
+    <Grid container spacing={2} sx={{ p: 3 ,height:'100vh'}}>
+      <Grid item xs={12} md={6}>
+        <TextField
+          fullWidth
+          sizw="small"
+          disabled
+          placeholder="...."
+          label="Search"
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Button disabled>
+          Pesquisar
+        </Button>
+      </Grid>
+
+      <Grid item sx={{ marginY: 6, overflowX: 'auto', display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
         {isLoading ? (
-          <CardTitle>...Carregando</CardTitle> // colocar skeleton
+          <Typography variant="h6">...Carregando</Typography> // colocar skeleton
         ) : (
           data?.map((movie, index) => (
-            <div className="col-sm-6 col-md-4 col-lg-4 mt-2" key={movie.id}>
+            <Grid item xs={12} md={6} key={movie.id}>
               <MovieCard movie={movie} index={index}>
                 <MovieModal movie={movie} index={index} submit={submit} />
               </MovieCard>
-            </div>
+            </Grid>
           ))
         )}
-      </div>
+      </Grid>
       <hr />
-      <CardTitle>Favoritos</CardTitle>
 
-      <div className="row flex-nowrap overflow-auto">
+      <Grid item sx={12} md={12}>
+        <Typography fontWeight={500} color='black' variant="h6">Favoritos</Typography>
+      </Grid>
+
+      <Grid item sx={{ marginY: 6, overflowX: 'auto', display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}  >
         {isLoadingFavorites ? (
-          <CardTitle>...Carregando</CardTitle>
+          <Typography variant="h6">...Carregando</Typography>
         ) : (
           favoritesData?.map((movieF, indexF) => (
-            <div className="col-sm-6 col-md-4 col-lg-4 mt-2" key={movieF.id}>
+            <Grid item xs={12} md={6} key={movieF.id}>
               <MovieCardFavorite movie={movieF} index={indexF} />
-            </div>
+            </Grid>
           ))
         )}
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };

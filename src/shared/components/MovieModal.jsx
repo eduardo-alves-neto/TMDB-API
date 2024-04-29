@@ -1,56 +1,41 @@
 import React from "react";
-import { CardTitle, Description } from "../styles/StyledComponents";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Typography, Button } from "@mui/material";
 
 export const MovieModal = ({ movie, index, submit }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <div
-      className="modal fade"
-      id={`staticBackdrop${index}`}
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabIndex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <CardTitle
-              style={{ color: "black" }}
-              className="modal-title"
-              id="staticBackdropLabel"
-            >
-              {movie.title}
-            </CardTitle>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="modal-body" style={{ color: "black" }}>
-            <Description>{movie.overview}</Description>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-danger"
-              data-bs-dismiss="modal"
-              onClick={() => submit(movie.id)}
-            >
-              Favoritar
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
+    <div>
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        saber mais
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{movie.title}</DialogTitle>
+        <DialogContent>
+          <Typography>{movie.overview}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => submit(movie.id)} color="primary">
+            Favoritar
+          </Button>
+          <Button onClick={handleClose} color="secondary" autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
